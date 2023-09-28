@@ -14,7 +14,6 @@
     "start": "gatsby develop",
     "serve": "gatsby serve",
     "clean": "gatsby clean",
-    "lint": "eslint .",
     "prettier": "prettier --write .",
     "tsc": "tsc -p tsconfig.json --noEmit"
   },
@@ -33,7 +32,6 @@
     "@types/react": "^18.2.9",
     "@types/react-dom": "^18.2.4",
     "cross-env": "^7.0.3",
-    "eslint": "^8.50.0",
     "prettier": "^3.0.3",
     "typescript": "^4.9.5"
   },

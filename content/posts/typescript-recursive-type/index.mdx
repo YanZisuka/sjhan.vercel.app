@@ -1,0 +1,173 @@
+---
+title: TypeScript Recursive Type
+date: 2023-12-07
+description: 타입스크립트로 재귀적 타입 작성하기.
+banner: ./typescript-logo.png
+---
+
+MUI같은 UI kit 라이브러리에서 차용한 개념으로 흔히 [sx prop](https://mui.com/system/getting-started/the-sx-prop)이라는 걸 볼 수 있다.
+간단하게 말해서, 다음 코드처럼 Object를 통해 css 프로퍼티를 다룰 수 있게 해준다.
+
+[styled-system](https://github.com/styled-system/styled-system)같은 훌륭한 라이브러리를 통해 손쉽게 구현할 수도 있다.
+
+```tsx
+import * as React from 'react';
+import { Box, ThemeProvider, createTheme } from '@mui/system';
+
+const theme = createTheme({
+  palette: {
+    background: {
+      paper: '#fff',
+    },
+    text: {
+      primary: '#173A5E',
+      secondary: '#46505A',
+    },
+    action: {
+      active: '#001E3C',
+    },
+    success: {
+      dark: '#009688',
+    },
+  },
+});
+
+export default function Example() {
+  return (
+    <ThemeProvider theme={theme}>
+      <Box
+        sx={{
+          bgcolor: 'background.paper',
+          boxShadow: 1,
+          borderRadius: 2,
+          p: 2,
+          minWidth: 300,
+        }}
+      />
+    <ThemeProvider />
+  );
+}
+```
+
+훌륭하다. 한 가지 문제점은, 위 스니펫에서 변수 theme는 `Record<K, V>`타입으로 표현 가능할테고, 이건 타입스크립트가 훌륭하게 추론해낼 수 있는 타입이다.
+
+그럼에도 이 기능을 활용하지 못하고 스타일을 부여하는 개발자는 theme가 어떤 디자인 토큰을 가지고 있는지 기억에 의존해야 한다. 심지어 오타가 발생할 수도 있고.
+
+타입스크립트 컴파일러에게 theme가 어떤 key를 가질 수 있는지 알려줄 수 있다면 개발자에게 훌륭하게 자동완성을 제안해 줄 거다. 따라서 다음과 같은 타입을 작성해보자.
+
+```ts title=sx.ts
+import * as Css from 'csstype'
+
+// 이렇게 간단한 디자인 토큰을 가진 테마를 가정하자.
+const theme = {
+  colors: {
+    textPrimary: '#173A5E',
+    textSecondary: '#46505A',
+  },
+} as const
+
+type Theme = typeof theme
+
+type ThemeToken<
+  K extends keyof ThemeType,
+  ThemeType,
+  ThemeAwareValue = any,
+> = ThemeType[K] extends ThemeAwareValue[]
+  ? number
+  : ThemeType[K] extends Record<infer E, ThemeAwareValue>
+  ? E
+  : never
+
+/**
+ * 아래의 ThemeType 제네릭에 typeof theme 타입을 주입해주면
+ * 컴파일러가 theme에 어떤 key-value가 존재하는지 알게 된다.
+ */
+interface CssColorProperties<
+  ThemeType extends Theme,
+  ThemeAwareValue = ThemeToken<'colors', ThemeType>,
+> {
+  color?:
+    | Css.StandardProperties<number | string>['color']
+    | ThemeAwareValue
+    | undefined
+}
+
+const prop: { sx?: CssColorProperties<Theme> } = {
+  sx: {
+    color: 'textPrimary',
+  },
+}
+```
+
+좋다. `color: 't`까지만 타이핑하더라도 textPrimary라는 후보가 추론되기 시작했을 거다.
+
+그런데 문제점이 하나 있다. css는 다른 css object를 지정할 수 있는 selector가 존재하고, 이 셀렉터는 또 `CssProperties | CssPseudoSelectors` 타입을 받을 수 있으므로 트리 형태의 재귀적인 타입이 필요하다..!
+
+그런데, 재귀적인 타입은 어떻게 작성할 수 있을까? 다음처럼 시도해보자.
+
+```ts title=sx.ts
+interface CssColorProperties<
+  ThemeType extends Theme,
+  ThemeAwareValue = ThemeToken<'colors', ThemeType>,
+> extends CssPseudoSelectorProps,
+    CssColorProperties<ThemeType, ThemeAwareValue> {
+  color?:
+    | Css.StandardProperties<number | string>['color']
+    | ThemeAwareValue
+    | undefined
+} // Type 'CssColorProperties<ThemeType, ThemeAwareValue>' 형식은 자기 자신을 기본 형식으로 재귀적으로 참조합니다.ts(2310)
+
+type CssPseudoSelectorProps = { [K in Css.Pseudos]?: CssObject }
+```
+
+![Impossible](./impossible.jpg)
+
+틀렸다..! 타입스크립트의 타입은 [튜링 완전](https://github.com/microsoft/TypeScript/issues/14833)하댔는데, 재귀조차 구현 불가능인건가?
+
+아니다. 하나의 타입으로 자신을 참조할 순 없지만, 두 개의 타입을 선언해 이를 구현할 수 있다.
+
+```ts title=sx.ts
+...
+
+interface CssColorProperties<
+  ThemeType extends Theme,
+  ThemeAwareValue = ThemeToken<'colors', ThemeType>,
+> {
+  color?:
+    | Css.StandardProperties<number | string>['color']
+    | ThemeAwareValue
+    | undefined
+}
+
+type CssPseudoSelectorProps = { [K in Css.Pseudos]?: CssObject }
+
+interface CssObject extends CssColorProperties<Theme>, CssPseudoSelectorProps {}
+
+interface SxProps {
+  sx?: CssObject
+}
+
+const prop: SxProps = {
+  sx: {
+    color: 'textPrimary',
+    ':hover': {
+      color: 'textSecondary',
+    },
+  },
+}
+
+```
+
+이제, 테마에 정의된 디자인 토큰을 추론가능한 스타일 객체를 다룰 수 있게 되었다. 동작하는 전체 코드는 [여기](https://stackblitz.com/edit/typescript-8uucuz?file=sx.ts)에서 볼 수 있다.
+
+처음 제시한 스니펫에서 나타난 `background.paper`같은 토큰을 추론가능하게 하려면 토큰 객체를 순회하며 파싱하는 추가 작업이 더 필요하지만, 기본적인 컨셉은 위에서 모두 다루었다.
+
+모두가 타입을 아주 잘 알고 있을 필요는 없지만, 이처럼 적절한 제약을 만든다면 조직의 생산성에 도움이 될 수 있다.
+
+<br />
+
+---
+
+## Reference
+
+- [@types/styled-system의 theme-aware 타입 선언](https://www.npmjs.com/package/@types/styled-system)

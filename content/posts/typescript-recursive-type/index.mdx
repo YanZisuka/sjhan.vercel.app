@@ -84,11 +84,11 @@ type ThemeToken<
  */
 interface CssColorProperties<
   ThemeType extends Theme,
-  ThemeAwareValue = ThemeToken<'colors', ThemeType>,
+  ThemeAwareToken = ThemeToken<'colors', ThemeType>,
 > {
   color?:
     | Css.StandardProperties<number | string>['color']
-    | ThemeAwareValue
+    | ThemeAwareToken
     | undefined
 }
 
@@ -108,16 +108,16 @@ const prop: { sx?: CssColorProperties<Theme> } = {
 ```ts title=sx.ts highlight=1,5 withLineNumbers
 interface CssColorProperties<
   ThemeType extends Theme,
-  ThemeAwareValue = ThemeToken<'colors', ThemeType>,
+  ThemeAwareToken = ThemeToken<'colors', ThemeType>,
 > extends CssPseudoSelectorProps,
-    CssColorProperties<ThemeType, ThemeAwareValue> {
+    CssColorProperties<ThemeType, ThemeAwareToken> {
   color?:
     | Css.StandardProperties<number | string>['color']
-    | ThemeAwareValue
+    | ThemeAwareToken
     | undefined
-} // Type 'CssColorProperties<ThemeType, ThemeAwareValue>' 형식은 자기 자신을 기본 형식으로 재귀적으로 참조합니다.ts(2310)
+} // Type 'CssColorProperties<ThemeType, ThemeAwareToken>' 형식은 자기 자신을 기본 형식으로 재귀적으로 참조합니다.ts(2310)
 
-type CssPseudoSelectorProps = { [K in Css.Pseudos]?: CssObject }
+type CssPseudoSelectorProps = { [K in Css.Pseudos]?: CssColorProperties }
 ```
 
 ![Impossible](./impossible.jpg)
@@ -131,11 +131,11 @@ type CssPseudoSelectorProps = { [K in Css.Pseudos]?: CssObject }
 
 interface CssColorProperties<
   ThemeType extends Theme,
-  ThemeAwareValue = ThemeToken<'colors', ThemeType>,
+  ThemeAwareToken = ThemeToken<'colors', ThemeType>,
 > {
   color?:
     | Css.StandardProperties<number | string>['color']
-    | ThemeAwareValue
+    | ThemeAwareToken
     | undefined
 }
 

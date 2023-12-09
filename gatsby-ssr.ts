@@ -32,9 +32,9 @@ export const onRenderBody = ({ setPreBodyComponents }) => {
 }
 
 const fontUrl = `https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css`
-const codeFontItalicUrl = `${withPrefix('fonts/MonoLisaVariableItalic.woff2')}`
-const codeFontNormalUrl = `${withPrefix('fonts/MonoLisaVariableNormal.woff2')}`
-const fontMl = `@font-face{font-family:'ml';font-style:normal;src:url(${codeFontNormalUrl}) format('woff2');}@font-face{font-family:'ml';font-style:italic;src:url(${codeFontItalicUrl}) format('woff2');}`
+const codeFontItalicUrl = `${withPrefix('fonts/MonaspaceArgon-Italic.woff')}`
+const codeFontNormalUrl = `${withPrefix('fonts/MonaspaceArgon-Regular.woff')}`
+const fontMl = `@font-face{font-family:'Monaspace Argon';font-style:normal;src:url(${codeFontNormalUrl}) format('woff');}@font-face{font-family:'Monaspace Argon';font-style:italic;src:url(${codeFontItalicUrl}) format('woff');}`
 
 const strikeThroughCss = `.strikeThrough::after{content:"";position:absolute;height:0.15em;background:var(--theme-ui-colors-danger);margin:auto;margin-top:0.65em;-webkit-transform:rotate(-3deg);-moz-transform:rotate(-3deg);-ms-transform:rotate(-3deg);transform:rotate(-3deg);inset:0;}`
 
@@ -51,23 +51,23 @@ export const onPreRenderHTML = ({
       crossOrigin: 'anonymous',
     }),
     React.createElement('link', {
-      key: 'font-ml',
+      key: 'font-monaspace-argon',
       rel: 'preload',
       href: codeFontNormalUrl,
       as: 'font',
-      type: 'font/woff2',
+      type: 'font/woff',
       crossOrigin: 'anonymous',
     }),
     React.createElement('link', {
-      key: 'font-ml-italic',
+      key: 'font-monaspace-argon-italic',
       rel: 'preload',
       href: codeFontItalicUrl,
       as: 'font',
-      type: 'font/woff2',
+      type: 'font/woff',
       crossOrigin: 'anonymous',
     }),
     React.createElement('style', {
-      key: 'font-face.ml',
+      key: 'font-face.monaspace-argon',
       dangerouslySetInnerHTML: {
         __html: fontMl,
       },

@@ -2,13 +2,13 @@ import baseCode from '@lekoarts/gatsby-theme-minimal-blog/src/styles/code'
 
 export default {
   pre: {
-    fontFamily: 'ml, monospace',
+    fontFamily: '"Monaspace Argon", monospace',
   },
   '.react-live-wrapper > *': {
-    fontFamily: 'ml, monospace !important',
+    fontFamily: '"Monaspace Argon", monospace !important',
   },
   code: {
-    fontFamily: 'ml, monospace',
+    fontFamily: '"Monaspace Argon", monospace',
   },
   'pre[class~="language-java"]:before': {
     content: `"scala"`,
@@ -36,7 +36,7 @@ export default {
     // @ts-expect-error this is an object
     ...baseCode['.code-title'],
     fontSize: [0, 1],
-    fontFamily: 'ml, monospace',
+    fontFamily: '"Monaspace Argon", monospace',
     borderTopLeftRadius: '0.5rem',
     borderTopRightRadius: '0.5rem',
     mx: 0,

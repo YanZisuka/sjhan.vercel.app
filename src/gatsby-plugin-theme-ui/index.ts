@@ -59,7 +59,6 @@ const theme = merge(baseTheme, {
     twitterBlue: '#1d9bf0',
     twitterPollBg: 'rgb(207, 217, 222)',
     twitterPollBgWinner: 'rgba(29, 155, 240, 0.58)',
-    primary: '#387D6C',
     danger: 'var(--theme-ui-colors-red-6)',
     warning: 'var(--theme-ui-colors-yellow-7)',
     modes: {

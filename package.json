@@ -13,6 +13,7 @@
     "build:cypress": "cross-env CYPRESS_SUPPORT=y yarn build",
     "serve": "gatsby serve",
     "clean": "gatsby clean",
+    "lint": "eslint",
     "prettier": "prettier --write .",
     "tsc": "tsc -p tsconfig.json --noEmit"
   },
@@ -27,10 +28,14 @@
     "react-dom": "^18.2.0"
   },
   "devDependencies": {
+    "@types/eslint": "^8",
     "@types/node": "^18.16.16",
     "@types/react": "^18.2.9",
     "@types/react-dom": "^18.2.4",
+    "@typescript-eslint/parser": "^6.15.0",
     "cross-env": "^7.0.3",
+    "eslint": "^8.56.0",
+    "eslint-plugin-simple-import-sort": "^10.0.0",
     "prettier": "^3.0.3",
     "typescript": "^4.9.5"
   },

@@ -16,6 +16,8 @@
     "./src/**/*",
     "./gatsby-node.ts",
     "./gatsby-config.ts",
-    "./plugins/**/*"
+    "./plugins/**/*",
+    "./.eslintrc.js",
+    "./prettier.config.js"
   ]
 }

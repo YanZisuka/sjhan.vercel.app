@@ -1,5 +1,5 @@
-import baseTheme from '@lekoarts/gatsby-theme-minimal-blog/src/gatsby-plugin-theme-ui'
 import { merge } from 'theme-ui'
+import baseTheme from '@lekoarts/gatsby-theme-minimal-blog/src/gatsby-plugin-theme-ui'
 
 const theme = merge(baseTheme, {
   fontSizes: [

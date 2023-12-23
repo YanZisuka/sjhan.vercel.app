@@ -1,6 +1,5 @@
-import { jsx } from 'theme-ui'
-import * as React from 'react'
 import { withPrefix } from 'gatsby'
+import * as React from 'react'
 
 const noFlashDark = `(function () {
   try {
@@ -20,14 +19,18 @@ const noFlashDark = `(function () {
   } catch (err) {}
 })();`
 
-export const onRenderBody = ({ setPreBodyComponents }) => {
+export const onRenderBody = ({
+  setPreBodyComponents,
+}: {
+  setPreBodyComponents: (components: React.ReactNode[]) => void
+}) => {
   setPreBodyComponents([
-    jsx('script', {
-      key: 'theme-ui-no-flash-dark',
-      dangerouslySetInnerHTML: {
+    <script
+      key="theme-ui-no-flash-dark"
+      dangerouslySetInnerHTML={{
         __html: noFlashDark,
-      },
-    }),
+      }}
+    />,
   ])
 }
 
@@ -41,43 +44,46 @@ const strikeThroughCss = `.strikeThrough::after{content:"";position:absolute;hei
 export const onPreRenderHTML = ({
   getHeadComponents,
   replaceHeadComponents,
+}: {
+  getHeadComponents: () => React.ReactNode[]
+  replaceHeadComponents: (components: React.ReactNode[]) => void
 }) => {
   const components = [
-    React.createElement('link', {
-      key: 'font-pretendard',
-      rel: 'stylesheet',
-      href: fontUrl,
-      as: 'style',
-      crossOrigin: 'anonymous',
-    }),
-    React.createElement('link', {
-      key: 'font-monaspace-argon',
-      rel: 'preload',
-      href: codeFontNormalUrl,
-      as: 'font',
-      type: 'font/woff',
-      crossOrigin: 'anonymous',
-    }),
-    React.createElement('link', {
-      key: 'font-monaspace-argon-italic',
-      rel: 'preload',
-      href: codeFontItalicUrl,
-      as: 'font',
-      type: 'font/woff',
-      crossOrigin: 'anonymous',
-    }),
-    React.createElement('style', {
-      key: 'font-face.monaspace-argon',
-      dangerouslySetInnerHTML: {
+    <link
+      key="font-pretendard"
+      rel="stylesheet"
+      href={fontUrl}
+      as="style"
+      crossOrigin="anonymous"
+    />,
+    <link
+      key="font-monaspace-argon"
+      rel="preload"
+      href={codeFontNormalUrl}
+      as="font"
+      type="font/woff"
+      crossOrigin="anonymous"
+    />,
+    <link
+      key="font-monaspace-argon-italic"
+      rel="preload"
+      href={codeFontItalicUrl}
+      as="font"
+      type="font/woff"
+      crossOrigin="anonymous"
+    />,
+    <style
+      key="font-face.monaspace-argon"
+      dangerouslySetInnerHTML={{
         __html: fontMl,
-      },
-    }),
-    React.createElement('style', {
-      key: 'strike-through',
-      dangerouslySetInnerHTML: {
+      }}
+    />,
+    <style
+      key="strike-through"
+      dangerouslySetInnerHTML={{
         __html: strikeThroughCss,
-      },
-    }),
+      }}
+    />,
     ...getHeadComponents(),
   ]
 

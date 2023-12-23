@@ -1,5 +1,6 @@
-import type { GatsbyConfig, PluginRef } from 'gatsby'
 import 'dotenv/config'
+
+import type { GatsbyConfig, PluginRef } from 'gatsby'
 
 const shouldAnalyseBundle = process.env.ANALYSE_BUNDLE
 

@@ -16,6 +16,7 @@
     "./src/**/*",
     "./gatsby-node.ts",
     "./gatsby-config.ts",
+    "./gatsby-ssr.tsx",
     "./plugins/**/*",
     "./.eslintrc.js",
     "./prettier.config.js"

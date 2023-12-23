@@ -1,0 +1,22 @@
+---
+title: 당신은 useEffect가 필요 없다.
+date: 2023-12-23
+description: 어떤 코드가 유지보수를 어렵게 할까.
+banner: ./react.png
+---
+
+개발자가 작성하는 코드는 정적(static)이다. 그래서 동적으로 동작하는 라인은 프로그램의 흐름을 추적하기 어렵게 만든다.
+
+함수형 프로그래밍의 불변성, `let`보다 `const`를 [선호하는 것](https://twitter.com/kentcdodds/status/1154468901121482753?s=20&t=CWQ9RT_rEZ1jGB620ssbuA)도 맥을 같이할 거다. 
+
+`useEffect`는 매우 동적인 훅이다. 그래서 남용하면 코드를 읽는 사람의 상상력을 많이 요구하게 되고, 유지보수하기 어렵게 만든다.
+
+그런데 생각보다 리액트 개발자는 effect를 남용한다.
+
+오죽하면 React 공식문서에서 특별히 [You Might Not Need An Effect](https://react.dev/learn/you-might-not-need-an-effect)까지 만들었겠는가.
+
+useEffect의 안티 패턴에 어떤 것들이 있는지 두 번, 세 번이고 읽어보자. 성능은 알아서 따라올 거다.
+
+일반적으로 React Tree에 이미 통합된 상태(props, useState, useReducer)에서 파생되는 값을 계산하는 데 effect를 쓰고 있다면 십중팔구 잘못 쓰고 있는 것이다.
+
+실무에서는 나쁜 알고리즘보다 잦은 리렌더가 성능 문제를 야기하는 경우가 더 많다.

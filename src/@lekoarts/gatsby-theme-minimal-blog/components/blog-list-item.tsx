@@ -18,7 +18,7 @@ export default function BlogListItem({ post, showTags }: Props) {
         padding: '8px',
         '@media (prefers-reduced-motion: no-preference)': {
           transition:
-            'border 150ms ease-in, transform 0.8s cubic-bezier(0.34, 1.56, 0.64, 1),box-shadow 0.8s cubic-bezier(0.34, 1.56, 0.64, 1)',
+            'transform 0.8s cubic-bezier(0.34, 1.56, 0.64, 1),box-shadow 0.8s cubic-bezier(0.34, 1.56, 0.64, 1)',
           '&:hover': {
             transform: 'translate3d(0, -8px, 0)',
           },

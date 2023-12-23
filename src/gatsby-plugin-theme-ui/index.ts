@@ -72,6 +72,9 @@ const theme = merge(baseTheme, {
     },
   },
   styles: {
+    a: {
+      fontWeight: 500,
+    },
     h1: {
       overflowWrap: 'break-word',
     },

@@ -1,0 +1,48 @@
+---
+title: Type narrowing으로 Promise 안전하게 다루기
+description: 우리에게 필요한 건 단 하나의 우주다.
+date: 2024-01-23
+banner: ./multiuniverse.avif
+tags:
+  - TypeScript
+---
+
+[Promise](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise)를 다루는 건 까다롭다. 몇 가지 이유가 있지만, 기본적으로 `resolve`, `reject`, `pending`이라는 세 가지 상황을 파생시키기 때문일 거다.
+
+프론트엔드 엔지니어라면 누구나 겪는 문제기에 [React Suspense를 이용해 깔끔하게 처리하는 방법](https://toss.im/slash-21/sessions/3-1)도 이제는 꽤 보편적이다.
+
+React Query는 [QueryObserverResult](https://github.com/TanStack/query/blob/main/packages/query-core/src/types.ts#L572) 타입을 Discriminated Union으로 다루면서 `isLoading`이나 `isSuccess`같은 플래그 변수를 통해 데이터 타입을 훌륭하게 다룰 수 있게 지원해준다.
+
+```ts withLineNumbers
+const query = useQuery({
+  queryKey: ['example'],
+  queryFn: () =>
+    new Promise(resolve => setTimeout(() => resolve('example'), 1000)),
+})
+
+query.data // string | undefined
+query.isLoading && query.data // undefined
+query.isSuccess && query.data // string
+```
+
+내가 마주한 케이스는 React Query v3에서 업그레이드하는 상황이었다.
+
+v3의 `isLoading`이 **v4에서** `isInitialLoading`, **v5에서** 다시 `isLoading`으로 변경(...)되었지만 기존 QueryObserverResult가 이를 커버하지 못하면서 `isPending` 플래그에만 위와 같은 타입 추론이 이루어지고, `isLoading`은 그렇지 못했다.
+
+```ts withLineNumbers
+const query = useQuery({
+  queryKey: ['example'],
+  queryFn: () =>
+    new Promise(resolve => setTimeout(() => resolve('example'), 1000)),
+})
+
+query.data // string | undefined
+query.isPending && query.data // undefined
+query.isLoading && query.data // string | undefined
+```
+
+v5의 `isLoading`은 `isPending && isFetching`으로 계산되는 속성이므로 [변화에 대한 논리적 근거를 마련하고 개선 PR을 제출해](https://github.com/TanStack/query/pull/6716) React Query에 기여할 수 있었다.
+
+v5.17.14부터는 좀 더 정확한 타입을 추론받아 불필요하게 많은 케이스에 대한 처리를 하지 않아도 될 것이다.
+
+평소 리스펙하던 개발자에게 직접 피드백을 받고, 수많은 프론트엔드 개발자가 애용하는 라이브러리에 기여해볼 수 있다는 건 정말 행운이었던 것 같다.

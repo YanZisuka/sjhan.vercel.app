@@ -12,7 +12,7 @@ interface Props extends React.ComponentProps<typeof OriginalBlogListItem> {
 export default function BlogListItem({ post, showTags }: Props) {
   return (
     <Box
-      sx={t => ({
+      sx={{
         maxWidth: '320px',
         borderRadius: '12px',
         padding: '8px',
@@ -23,7 +23,7 @@ export default function BlogListItem({ post, showTags }: Props) {
             transform: 'translate3d(0, -8px, 0)',
           },
         },
-      })}
+      }}
     >
       {post.banner && (
         <Link

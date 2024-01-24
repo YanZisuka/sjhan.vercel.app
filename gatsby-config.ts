@@ -158,6 +158,7 @@ interface IPost {
   timeToRead: number
   wordCount: number
   tags: Array<IPostTag>
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   banner: any
   description: string
   canonicalUrl: string

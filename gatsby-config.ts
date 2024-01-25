@@ -21,9 +21,34 @@ const config: GatsbyConfig = {
   trailingSlash: `never`,
   plugins: [
     {
+      resolve: `gatsby-plugin-mdx`,
+      options: {
+        extensions: [`.mdx`, `.md`],
+        gatsbyRemarkPlugins: [
+          {
+            resolve: 'gatsby-remark-external-links',
+            options: {
+              target: '_blank',
+              rel: 'noopener noreferrer',
+            },
+          },
+          {
+            resolve: `gatsby-remark-images`,
+            options: {
+              maxWidth: 960,
+              quality: 90,
+              linkImagesToOriginal: false,
+              backgroundColor: `transparent`,
+            },
+          },
+        ],
+      },
+    },
+    {
       resolve: `@lekoarts/gatsby-theme-minimal-blog`,
       // See the theme's README for all available options
       options: {
+        mdx: false,
         formatString: 'YYYY.MM.DD',
         navigation: [
           {

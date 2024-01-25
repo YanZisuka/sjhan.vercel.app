@@ -2,3 +2,6 @@
 base = "."
 publish = "public/"
 command = "yarn clean && yarn build"
+
+[build.processing.html]
+pretty_urls = false

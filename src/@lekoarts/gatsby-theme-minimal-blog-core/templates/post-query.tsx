@@ -8,11 +8,11 @@ export default PostComponent
 export { Head }
 
 export const query = graphql`
-  query ($slug: String!) {
+  query ($slug: String!, $formatString: String!) {
     post(slug: { eq: $slug }) {
       slug
       title
-      date(formatString: "YYYY.MM.DD")
+      date(formatString: $formatString)
       tags {
         name
         slug

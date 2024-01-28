@@ -16,8 +16,7 @@ React Query는 [QueryObserverResult](https://github.com/TanStack/query/blob/main
 ```ts withLineNumbers
 const query = useQuery({
   queryKey: ['example'],
-  queryFn: () =>
-    new Promise(resolve => setTimeout(() => resolve('example'), 1000)),
+  queryFn: () => Promise.resolve('example'),
 })
 
 query.data // string | undefined
@@ -32,8 +31,7 @@ v3의 `isLoading`이 **v4에서** `isInitialLoading`, **v5에서** 다시 `isLoa
 ```ts withLineNumbers
 const query = useQuery({
   queryKey: ['example'],
-  queryFn: () =>
-    new Promise(resolve => setTimeout(() => resolve('example'), 1000)),
+  queryFn: () => Promise.resolve('example'),
 })
 
 query.data // string | undefined

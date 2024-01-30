@@ -25,11 +25,13 @@
     "gatsby-plugin-sitemap": "^6.10.0",
     "gatsby-plugin-webpack-statoscope": "^1.0.3",
     "gatsby-remark-external-links": "^0.0.4",
+    "lodash.kebabcase": "^4.1.1",
     "react": "^18.2.0",
     "react-dom": "^18.2.0"
   },
   "devDependencies": {
     "@types/eslint": "^8",
+    "@types/lodash.kebabcase": "^4",
     "@types/node": "^18.16.16",
     "@types/react": "^18.2.9",
     "@types/react-dom": "^18.2.4",

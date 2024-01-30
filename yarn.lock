@@ -3843,6 +3843,22 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@types/lodash.kebabcase@npm:^4":
+  version: 4.1.9
+  resolution: "@types/lodash.kebabcase@npm:4.1.9"
+  dependencies:
+    "@types/lodash": "npm:*"
+  checksum: 66f54d6f94813c6d28896d80a9205d032baa31642f7fd8f74fcc67d113c023eced63ae643143dbbe05bd90866a6cc51b44c632a3b3651a69e8867cf779593a6a
+  languageName: node
+  linkType: hard
+
+"@types/lodash@npm:*":
+  version: 4.14.202
+  resolution: "@types/lodash@npm:4.14.202"
+  checksum: 1bb9760a5b1dda120132c4b987330d67979c95dbc22612678682cd61b00302e190f4207228f3728580059cdab5582362262e3819aea59960c1017bd2b9fb26f6
+  languageName: node
+  linkType: hard
+
 "@types/lodash@npm:^4.14.92":
   version: 4.14.199
   resolution: "@types/lodash@npm:4.14.199"
@@ -15045,6 +15061,7 @@ __metadata:
   dependencies:
     "@lekoarts/gatsby-theme-minimal-blog": "npm:^6.0.5"
     "@types/eslint": "npm:^8"
+    "@types/lodash.kebabcase": "npm:^4"
     "@types/node": "npm:^18.16.16"
     "@types/react": "npm:^18.2.9"
     "@types/react-dom": "npm:^18.2.4"
@@ -15059,6 +15076,7 @@ __metadata:
     gatsby-plugin-sitemap: "npm:^6.10.0"
     gatsby-plugin-webpack-statoscope: "npm:^1.0.3"
     gatsby-remark-external-links: "npm:^0.0.4"
+    lodash.kebabcase: "npm:^4.1.1"
     prettier: "npm:^3.0.3"
     react: "npm:^18.2.0"
     react-dom: "npm:^18.2.0"

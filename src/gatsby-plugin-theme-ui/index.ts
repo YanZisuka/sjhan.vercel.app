@@ -75,6 +75,10 @@ const theme = merge(baseTheme, {
   styles: {
     a: {
       fontWeight: 500,
+      textDecoration: 'none',
+      ':hover': {
+        textDecoration: 'underline',
+      },
     },
     h1: {
       overflowWrap: 'break-word',

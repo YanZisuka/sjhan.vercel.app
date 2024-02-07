@@ -1,0 +1,5 @@
+{
+  "buildCommand": "yarn clean && yarn build",
+  "outputDirectory": "public",
+  "trailingSlash": false
+}

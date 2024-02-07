@@ -5,3 +5,9 @@ command = "yarn clean && yarn build"
 
 [build.processing.html]
 pretty_urls = false
+
+[[redirects]]
+from = "https://sjhan.netlify.app/*"
+to = "https://sjhan.vercel.app/:splat"
+status = 301
+force = true

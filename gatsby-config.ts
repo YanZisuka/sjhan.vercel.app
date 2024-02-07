@@ -12,7 +12,7 @@ const config: GatsbyConfig = {
     siteTitle: `Kirby`,
     siteTitleAlt: `Kirby`,
     siteHeadline: `Kirby's Blog`,
-    siteUrl: `https://sjhan.netlify.app`,
+    siteUrl: `https://sjhan.vercel.app`,
     siteDescription: `프론트엔드 개발자 한승재 블로그`,
     siteImage: `/banner.png`,
     siteLanguage: `ko`,

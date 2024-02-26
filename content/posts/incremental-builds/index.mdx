@@ -1,0 +1,52 @@
+---
+title: Incremental Builds
+description: 
+date: 2024-02-26
+banner: ./fractal.jpeg
+tags:
+  - Cost Optimization
+---
+
+## 프로그램
+
+Jean-Paul Sartre는 말했다.
+
+> C between B and D
+— C as in the Choices we make between B-Birth and D-Death.
+
+프로그램은 주어진 데이터(B)에 대해 연산(C)을 통해 새로운 데이터(D)를 만들어낸다. 즉 Haskell식으로 `C :: B -> D`라고 할 수 있겠다.
+
+개인적으로는 데이터(B와 D)의 모델링에 대한 방법론이 Object-Oriented Programming,
+
+연산(C)의 모델링 방법론이 Functional Programming이라 생각한다.
+
+
+## 분할정복
+
+위 정의에 따라 모든 프로그램을 `C :: B -> D`라고 정의하면,
+
+C를 부분 규모의 문제 해결 연산으로 나눌 수 있고,
+
+이 연산들의 합성을 통해 프로그램을 구현할 수 있다.
+
+이때문에 많은 기업들이 Dynamic Programming 해결 능력을 개발자의 Fundamental 지표로 삼는 것 같다. (물론 나만의 생각이다.)
+
+
+## Infrastructures
+
+최근 AI 산업이 대두되면서, 기업의 코어 기술이 프로그래머의 구현체가 아닌 케이스가 많이 생겼다.
+
+이런 상황에서는 특히 CTO를 비롯한 개발자들의 역할이 코어 기술을 얼마나 비용 효율적으로 엔드-투-엔드 서빙하는지가 꽤 중요한 역량으로 떠오를 것 같다.
+
+특히 인프라 비용은 최적화 여부에 따라 스타트업의 투자금 소진율을 다르게 만들 정도다.
+
+코어 기술의 사이즈가 커질수록 이 차이는 더 극적으로 벌어진다.
+
+
+## Nx
+
+개인적으로 Nx의 홈페이지가 큰 규모의 코드베이스를 어떤 식으로 다뤄야 하는지를 정말 잘 설명해주고 있다고 생각한다.
+
+특히 [Incremental Builds](https://nx.dev/concepts/more-concepts/incremental-builds)에 나타난 접근방식은 위 분할정복의 컨셉을 실무에 적용한 예시이자, 많은 통찰을 제공해 준다. (MSA, Module Federation, Cache Invalidation, ...)
+
+Content-Aware Hash를 기반으로 한 증분 빌드는 또한 엔드 유저에게 비용 효율적 딜리버리를 가능하게 만든다.

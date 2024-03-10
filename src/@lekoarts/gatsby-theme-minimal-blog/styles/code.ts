@@ -17,12 +17,16 @@ export default {
   },
   'pre[class~="language-kt"]:before': {
     content: `"KT"`,
-
     background: `#806EE3 !important`,
   },
   'pre[class~="language-groovy"]:before': {
     content: `"GROOVY"`,
     background: `#629CBC !important`,
+  },
+  'pre[class~="language-hs"]:before': {
+    content: `"haskell"`,
+    background: `#5e5086 !important`,
+    color: `white !important`,
   },
   ...baseCode,
   '.gatsby-highlight': {

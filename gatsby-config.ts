@@ -9,7 +9,7 @@ const config: GatsbyConfig = {
     // You can overwrite values here that are used for the SEO component
     // You can also add new values here to query them like usual
     // See all options: https://github.com/LekoArts/gatsby-themes/blob/main/themes/gatsby-theme-minimal-blog/gatsby-config.mjs
-    siteTitle: `sjhan`,
+    siteTitle: `seungjae.han`,
     siteTitleAlt: `sj.han's blog`,
     siteHeadline: `개발자 한승재 블로그`,
     siteUrl: `https://sjhan.vercel.app`,
@@ -78,7 +78,7 @@ const config: GatsbyConfig = {
       resolve: `gatsby-plugin-manifest`,
       options: {
         name: `sj.han's blog`,
-        short_name: `sjhan`,
+        short_name: `seungjae.han`,
         description: `프론트엔드 개발자 한승재 블로그`,
         start_url: `/`,
         background_color: `#fff`,

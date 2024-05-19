@@ -1,0 +1,75 @@
+---
+title: 직관적인 API
+description: 디버깅을 쉽게 만들고 생산성을 높이는 직관.
+date: 2024-04-28
+banner: ./intuition.jpeg
+tags:
+  - Anti-patterns
+---
+
+프로그래머는 **구현은 투박하더라도 인터페이스만큼은 주의깊게 설계해야 한다.**
+
+인터페이스가 변경되면 Breaking Changes가 발생할 확률이 높고, 해당 수정사항을 위해 들어가는 리소스가 커진다.
+
+(이런 경우는 양반이고, 가끔 런타임만 변해서 더 큰 리소스가 들어가는 경우도 있지만)
+
+그러면 대체 좋은 인터페이스란 무엇일까?
+
+절대적인 한 가지 기준이 있다. **인터페이스는 직관적이어야 한다**는 거다. 직관적이지 않으면 구현을 까보게 되고, 생산성을 갉아먹는다.
+
+그러면 직관적이란 게 대체 무엇일까? 명확하게 정의할 수 없지만, 직관적이지 않고 평가받는 사례를 통해 어느정도 윤곽을 잡아볼 수 있을 것 같다.
+
+## 1. 표준을 따르는
+
+명확한 표준이 존재하는 경우, 이를 따르는 것이 더 직관적이다.
+
+JSX 표준을 확장하는 다음과 같은 관계가 있다고 생각해보자.
+
+```ts
+namespace ThemeUIJSX {
+  interface Element extends JSX.Element {}
+}
+```
+
+따라서 `ThemeUIJSX.Element`의 텍스트 컬러를 바꿀 수 있는 제3의 theme-aware prop을 추가해서 확장하면 직관적이지 않다.
+
+또, [SOLID의 리스코프 치환 원칙](https://ko.wikipedia.org/wiki/%EB%A6%AC%EC%8A%A4%EC%BD%94%ED%94%84_%EC%B9%98%ED%99%98_%EC%9B%90%EC%B9%99)을 고려하면 `JSX.Element`의 기존 동작을 제한하지 않도록 주의해야 한다. (토큰을 덮어쓴다거나)
+
+```jsx
+<a color="red">표준</a>
+
+<Themed.a color="primary">직관적인</Themed.a>
+<Themed.a textColor="primary">직관적이지 않은</Themed.a>
+```
+
+## 2. 일관적인
+
+[MUI Button](https://mui.com/material-ui/react-button/)의 경우, 일련의 color set을 지칭하는 prop은 `variant`다.
+
+이런 상황에서 `Switch` 신규 컴포넌트를 추가할 때, color set을 결정하는 prop name은 `variant`가 가장 먼저 검토되어야 한다.
+
+동일한 역할의 `colorScheme`을 추가하는것은 덜 직관적이다.
+
+```jsx
+<Switch variant="primary">직관적인</Switch>
+<Switch colorScheme="primary">직관적이지 않은</Switch>
+```
+
+## 3. 직교하는
+
+인터랙션이 있는 [MUI Box](https://mui.com/material-ui/react-box/)에 `style={{cursor: 'pointer'}}`를 적용한다고 해보자.
+
+`as`로 button을 줄 수 있는데, `clickable`이라는 prop을 만들어버리면 어떤 것이 우선 적용되어 `cursor: pointer`가 적용되었는지 직관적으로 알기 어렵다.
+
+따라서 `as`와 `clickable`이 공존하면 직관적이지 않다.
+
+이런 prop을 꼭 만들어야 한다면 일관적인 우선순위를 부여해야 한다고 생각한다.
+
+(e.g., `typography`보다 더 specific한 `fontWeight`나 `fontSize`가 우선한다.)
+
+```jsx
+<Box as="button">직관적인</Box>
+<Box as="button" clickable>
+  직관적이지 않은
+</Box>
+```

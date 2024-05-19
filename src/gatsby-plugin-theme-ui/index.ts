@@ -64,9 +64,10 @@ const theme = merge(baseTheme, {
     warning: 'var(--theme-ui-colors-yellow-7)',
     modes: {
       dark: {
-        primary: '#61dafbaa',
+        primary: '#19c9ff',
         danger: 'var(--theme-ui-colors-red-7)',
         twitterPollBg: 'rgb(51, 54, 57)',
+        background: '#18181c',
         backgroundSecondary: 'var(--theme-ui-colors-gray-8)',
         backgroundTertiary: 'var(--theme-ui-colors-gray-7)',
         warning: 'var(--theme-ui-colors-yellow-6)',
